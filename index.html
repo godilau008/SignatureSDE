@@ -8,6 +8,7 @@
     label { display: block; margin: 8px 0 4px; }
     input { width: 300px; padding: 6px; }
     .signature-preview { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: inline-block; }
+    button { margin-top: 15px; padding: 8px 12px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -21,10 +22,15 @@
   <label>Poste:</label>
   <input id="titleInput" type="text" value="Poste">
 
-  <label>Contact:</label>
-  <input id="companyInput" type="text" value="Téléphone | Courriel">
+  <label>Téléphone:</label>
+  <input id="companyInput" type="text" value="Téléphone">
+
+  <label>Courriel (sans le .org):</label>
+  <input id="courrielInput" type="text" value="Courriel">
+
 </div>
-  <p><strong>👉 Copié le contenu de la boîte directement dans l'editeur de signature de gmail.</strong></p>
+  <p><strong>👉 Copier le contenu de la boîte directement dans l'éditeur de signature de Gmail.</strong></p>
+  
   <!-- Signature preview -->
   <div class="signature-preview" id="signature">
     <table>
@@ -36,18 +42,35 @@
           <div id="sigName" style="font-size:20px;">Prénom Nom</div>
           <div id="sigTitle">Poste</div>
           <div>Société de développement de l'Est</div>
-          <div id="sigCompany">Téléphone | Courriel</div>
+          <div><span id="sigCompany">Téléphone</span> | <span id="sigCourriel">Courriel</span>.org</div>
         </td>
       </tr>
     </table>
   </div>
+
+  <!-- Copy button -->
+<div>
+  <button onclick="copySignature()">📋 Copier la signature</button>
+</div><br>
+<div>v1.1</div>
 
   <script>
     function updateSignature() {
       document.getElementById("sigName").innerText = document.getElementById("nameInput").value;
       document.getElementById("sigTitle").innerText = document.getElementById("titleInput").value;
       document.getElementById("sigCompany").innerText = document.getElementById("companyInput").value;
-      document.getElementById("sigImage").src = document.getElementById("imageInput").value;
+      document.getElementById("sigCourriel").innerText = document.getElementById("courrielInput").value;
+    }
+
+    function copySignature() {
+      const sig = document.getElementById("signature");
+      const range = document.createRange();
+      range.selectNode(sig);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand("copy");
+      alert("Signature copiée !");
     }
 
     // Listen for changes
