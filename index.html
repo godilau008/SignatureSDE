@@ -52,7 +52,7 @@
 <div>
   <button onclick="copySignature()">📋 Copier la signature</button>
 </div><br>
-<div>v1.1</div>
+<div>v1.2</div>
 
   <script>
     function updateSignature() {
@@ -63,14 +63,25 @@
     }
 
     function copySignature() {
-      const sig = document.getElementById("signature");
+      const sigHTML = document.getElementById("signature").innerHTML; // only table, not border
+      const tempDiv = document.createElement("div");
+      tempDiv.contentEditable = true;
+      tempDiv.style.position = "fixed";
+      tempDiv.style.left = "-9999px";
+      document.body.appendChild(tempDiv);
+      tempDiv.innerHTML = sigHTML;  
+      tempDiv.focus();
+
+      // select and copy
       const range = document.createRange();
-      range.selectNode(sig);
+      range.selectNodeContents(tempDiv);
       const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
       document.execCommand("copy");
-      alert("Signature copiée !");
+
+      document.body.removeChild(tempDiv);
+      alert("Signature copiée sans le cadre !");
     }
 
     // Listen for changes
