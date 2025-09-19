@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signature SDE</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin: 8px 0 4px; }
+    input { width: 300px; padding: 6px; }
+    .signature-preview { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: inline-block; }
+  </style>
+</head>
+<body>
+<div>
+  <h2>Signature SDE</h2>
+
+  <!-- Input fields -->
+  <label>Nom:</label>
+  <input id="nameInput" type="text" value="Prénom Nom">
+
+  <label>Poste:</label>
+  <input id="titleInput" type="text" value="Poste">
+
+  <label>Contact:</label>
+  <input id="companyInput" type="text" value="Téléphone | Courriel">
+</div>
+  <p><strong>👉 Copié le contenu de la boîte directement dans l'editeur de signature de gmail.</strong></p>
+  <!-- Signature preview -->
+  <div class="signature-preview" id="signature">
+    <table>
+      <tr>
+        <td>
+          <img id="sigImage" src="https://drive.google.com/uc?export=view&id=1hAAcgreKuyOOKeI7i52Xjgz_HAxcO-fh" width="60" style="vertical-align:top;">
+        </td>
+        <td style="padding-left:10px; vertical-align:top; font-family:Arial, sans-serif; font-size:14px; color:#000;">
+          <div id="sigName" style="font-size:20px;">Prénom Nom</div>
+          <div id="sigTitle">Poste</div>
+          <div>Société de développement de l'Est</div>
+          <div id="sigCompany">Téléphone | Courriel</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function updateSignature() {
+      document.getElementById("sigName").innerText = document.getElementById("nameInput").value;
+      document.getElementById("sigTitle").innerText = document.getElementById("titleInput").value;
+      document.getElementById("sigCompany").innerText = document.getElementById("companyInput").value;
+      document.getElementById("sigImage").src = document.getElementById("imageInput").value;
+    }
+
+    // Listen for changes
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", updateSignature);
+    });
+  </script>
+
+</body>
+</html>
