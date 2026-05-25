@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signature cmetis</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin: 8px 0 4px; }
+    input { width: 300px; padding: 6px; }
+    .signature-preview { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: inline-block; }
+    button { margin-top: 15px; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div>
+  <h2>Signature cmetis</h2>
+
+  <!-- Input fields -->
+  <label>Nom:</label>
+  <input id="nameInput" type="text" value="Prénom Nom">
+
+  <label>Poste:</label>
+  <input id="titleInput" type="text" value="Poste">
+
+  <label>Téléphone:</label>
+  <input id="companyInput" type="text" value="Téléphone">
+
+  <label>Courriel (sans le .org):</label>
+  <input id="courrielInput" type="text" value="Courriel">
+
+</div>
+  <p><strong>👉 Copier le contenu de la boîte directement dans l'éditeur de signature</strong></p>
+  
+  <!-- Signature preview -->
+  <div class="signature-preview" id="signature">
+	<div style="vertical-align:top; font-family:Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Arial, sans-serif; font-size:16px; color:#000;">
+	  <div id="sigName" style="font-size:26px;">Prénom Nom</div>
+	  <div id="sigTitle" style="color:#666666">Poste</div>
+	  <div style="color:#666666"><span id="sigCompany">Téléphone</span> | <span id="sigCourriel">Courriel</span>.org</div>
+	</div>
+	<div>
+		<img id="sigImage" src="image.png" height="45">
+	</div>
+  </div>
+
+  <!-- Copy button -->
+<div>
+  <button onclick="copySignature()">📋 Copier la signature</button>
+</div><br>
+<div>v1.4 (2026-05-25)</div>
+
+  <script>
+    function updateSignature() {
+      document.getElementById("sigName").innerText = document.getElementById("nameInput").value;
+      document.getElementById("sigTitle").innerText = document.getElementById("titleInput").value;
+      document.getElementById("sigCompany").innerText = document.getElementById("companyInput").value;
+      document.getElementById("sigCourriel").innerText = document.getElementById("courrielInput").value;
+    }
+
+    function copySignature() {
+      const sigHTML = document.getElementById("signature").innerHTML; // only table, not border
+      const tempDiv = document.createElement("div");
+      tempDiv.contentEditable = true;
+      tempDiv.style.position = "fixed";
+      tempDiv.style.left = "-9999px";
+      document.body.appendChild(tempDiv);
+      tempDiv.innerHTML = sigHTML;  
+      tempDiv.focus();
+
+      // select and copy
+      const range = document.createRange();
+      range.selectNodeContents(tempDiv);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand("copy");
+
+      document.body.removeChild(tempDiv);
+      alert("Signature copiée sans le cadre !");
+    }
+
+    // Listen for changes
+    document.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", updateSignature);
+    });
+  </script>
+
+</body>
+</html>
