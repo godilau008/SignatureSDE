@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signature SDE</title>
+  <style>
+	@font-face { 
+	font-family: radial; src: url("ref/radial-regular.ttf"); 
+	}
+    body { font-family: radial, Arial, sans-serif; margin: 20px; background-color: #f3e2d4; }
+    label { display: block; margin: 8px 0 4px; }
+    input { width: 300px; padding: 6px; }
+    .signature-preview { margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: inline-block; }
+    button { margin: auto; padding: 8px 12px; cursor: pointer; }
+	.container { background-color: #d8a37f; padding: 20px; margin: 20px 0 20px 0; border-radius: 10px; box-shadow: 10px 5px 5px #001513;}
+  </style>
+<!--
+beige pale f3e2d4
+orange 9b5333
+beige d8a37f
+vert 001513
+-->
+</head>
+<body>
+
+<!-- paramètres -->
+<div class="container">
+  <h2>Paramètres</h2>
+<div style="display:flex;flex-wrap: wrap;">
+
+	<div style="flex:1">
+	<label>Nom:</label>
+	<input id="nameInput" type="text" value="Prénom Nom">
+	</div>
+	
+	<div style="flex:1">
+	<label>Poste:</label>
+	<input id="titleInput" type="text" value="Poste">
+	</div>
+	
+	<div style="flex:1">
+	<label>Téléphone:</label>
+	<input id="companyInput" type="text" value="Téléphone">
+	</div>
+	
+	<div style="flex:1">
+	<label>Courriel (sans le .org):</label>
+	<input id="courrielInput" type="text" value="Courriel">
+	</div>
+
+</div>
+</div>
+
+
+<!-- Signature SDE -->
+<div style="display:flex">
+  <div class="signature-preview" id="signature_sde">
+    <table>
+      <tr>
+        <td>
+          <a href="https://www.sdest.org/"><img id="sigImage" src="https://godilau008.github.io/SignatureSDE/sde/image.png" width="57" style="vertical-align:top;"></a>
+        </td>
+        <td style="padding-left:10px; vertical-align:top; font-family:Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Arial, sans-serif; font-size:16px; color:#000;">
+          <div class="sigName" style="font-size:26px;">Prénom Nom</div>
+          <div class="sigTitle">Poste</div>
+          <div>Société de développement de l'Est</div>
+          <div><span class="sigCompany">Téléphone</span> | <span class="sigCourriel">Courriel</span>.org</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<div style="padding:20px;">
+	<button onclick="copySignature('signature_sde')">
+	📋 Copier la signature SDE
+	</button>
+</div>
+
+</div>
+
+<!-- Signature cmetis -->
+<div style="display:flex">
+<div class="signature-preview" id="signature_cmetis">
+<div style="vertical-align:top; font-family:Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Arial, sans-serif; font-size:16px; color:#000;">
+  <div class="sigName" style="font-size:26px;">Prénom Nom</div>
+  <div class="sigTitle" style="color:#666666">Poste</div>
+  <div style="color:#666666"><span class="sigCompany">Téléphone</span> | <span class="sigCourriel">Courriel</span>.org</div>
+</div>
+<div>
+	<a href="https://www.cmetis.org/"><img id="sigImage" src="https://godilau008.github.io/SignatureSDE/cmetis/image.png" height="45"></a>
+</div>
+</div>
+
+<div style="padding:20px;">
+	<button onclick="copySignature('signature_cmetis')">
+	📋 Copier la signature CMETIS
+	</button>
+</div>
+
+</div>
+
+<!-- instructions -->
+<div class="container">
+
+<h2>Instructions</h2>
+<ol>
+	<li>Ajouter vos informations tel qu’indiqué sur la page, puis copier la signature en appuyant sur le bouton prévu à cet effet.</li>
+	<li>Dans Outlook ou Teams, appuyer sur le bouton engrenage ou les 3 points pour vous rendre dans les réglages. Ceux-ci devraient être en haut à droite de la fenêtre</li>
+	<li>Dans le menu des réglages, appuyer sur le premier onglet compte, puis sur le sous-menu signature et enfin, ajouter un signature</li>
+	<li>Enfin, collez votre signature copiée à l’aide du raccourci clavier “ctrl+v” dans la zone à cet effet et donner un nom à votre signature à votre discrétion.</li>
+	<li>Vous pouvez également établir choisir une de vos signatures sauvegardées dans la même fenêtre comme signature par défaut, autrement, vous devrez utiliser l’onglet “insérer” dans outlook pour insérer une de vos signatures sauvegardées.</li>
+</ol>
+
+<div style="text-align:center">
+	<video width="90%" controls>
+	  <source src="ref/video.webm" type="video/webm">
+	Your browser does not support the video tag.
+	</video>
+</div>
+
+<h2>Avertissement</h2>
+<p>Par défaut, la signature sur l’application mobile (android et ios) est “Obtenir Outlook pour XX”. Vous devez suivre les mêmes étapes décrites plus bas sur mobile pour changer votre signature et avoir la bonne signature puisque la signature sur le web n’est pas synchronisée avec l’application mobile. Sur mobile, appuyer sur votre icône de profil en haut à gauche de l'écran, puis l’engrenage en bas à gauche pour se rendre dans les paramètres. Une option signature devrait être visible où vous pouvez coller votre signature. À noter, le logo ne s’affiche pas initialement dans l’éditeur de signature, mais devrait fonctionner une fois sauvegardé.</p>
+
+</div>
+
+
+
+
+
+<div style="text-align:right">v1.5 (2026-06-16)</div>
+<!-- JS -->
+<script>
+function updateSignature() {
+  const name = document.getElementById("nameInput").value;
+  const title = document.getElementById("titleInput").value;
+  const phone = document.getElementById("companyInput").value;
+  const email = document.getElementById("courrielInput").value;
+
+  document.querySelectorAll(".sigName").forEach(el => {
+    el.textContent = name;
+  });
+
+  document.querySelectorAll(".sigTitle").forEach(el => {
+    el.textContent = title;
+  });
+
+  document.querySelectorAll(".sigCompany").forEach(el => {
+    el.textContent = phone;
+  });
+
+  document.querySelectorAll(".sigCourriel").forEach(el => {
+    el.textContent = email;
+  });
+}
+
+function copySignature(signatureId) {
+  const html = document.getElementById(signatureId).innerHTML;
+
+  const tempDiv = document.createElement("div");
+  tempDiv.contentEditable = true;
+  tempDiv.style.position = "fixed";
+  tempDiv.style.left = "-9999px";
+  tempDiv.innerHTML = html;
+
+  document.body.appendChild(tempDiv);
+
+  const range = document.createRange();
+  range.selectNodeContents(tempDiv);
+
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  document.execCommand("copy");
+
+  document.body.removeChild(tempDiv);
+
+  alert("Signature copiée !");
+}
+
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", updateSignature);
+});
+
+updateSignature();
+</script>
+
+</body>
+</html>
